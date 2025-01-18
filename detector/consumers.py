@@ -67,6 +67,11 @@ knowledge_base_json = str(
       "description": "The caller offers high-return investment opportunities, often in cryptocurrency, stocks, or real estate.",
       "examples": ["Earn 20% returns monthly with our exclusive crypto investment platform!", "Invest in this real estate project for guaranteed profits."],
       "recommended_action": "Be skeptical of high-return promises. Research the investment thoroughly and consult a trusted financial advisor."
+    },
+    "legitimate_calls": {
+      "description": "Genuine calls may come from legitimate organizations or individuals for valid reasons, and they typically offer identifiable and verifiable information.",
+      "examples": ["A reminder call from your healthcare provider about an upcoming appointment.", "A delivery service calling to confirm a package delivery time.", "Your bank calling to verify unusual account activity."],
+      "recommended_action": "Listen for professional, calm communication. Verify their claims independently using official contact methods, and avoid sharing sensitive information unless you initiated the call and trust the recipient."
     }
   },
   "case_scenarios": [
@@ -94,11 +99,21 @@ knowledge_base_json = str(
       "scenario": "The caller claims to be from Microsoft and requests remote access to fix a virus on your computer.",
       "analysis": "This is likely a technical support scam attempting to gain control of your device.",
       "recommended_action": "Refuse remote access and contact your device manufacturer or trusted tech support directly."
+    },
+    {
+      "scenario": "The caller is a delivery service confirming your package details.",
+      "analysis": "This may be a legitimate call to ensure a smooth delivery.",
+      "recommended_action": "Confirm only basic details, like the delivery time or partial address, and avoid sharing sensitive information. Call the service provider back through their official number if unsure."
+    },
+    {
+      "scenario": "The caller identifies themselves as your doctor’s office to remind you about an appointment.",
+      "analysis": "This is likely a legitimate call providing helpful information.",
+      "recommended_action": "Note the details and verify with the clinic if you have doubts."
     }
   ]
 }
-
 )
+
 
 def ask_gemini(snippet, context):
     genai.configure(api_key=os.getenv('api_key'))
