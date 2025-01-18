@@ -1,43 +1,37 @@
 {% extends 'detector/base.html' %}
 
 {% block content %}
-<div class="container mt-4">
-    <h1>Call Analysis History</h1>
-    <div class="table-responsive">
-        <table class="table table-striped">
-            <thead>
+<div class="container mx-auto px-4 py-8">
+    <h1 class="text-3xl font-bold text-gray-800 mb-6">Call Log History</h1>
+    
+    <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+        <table class="w-full text-sm text-left text-gray-500">
+            <thead class="text-xs text-gray-700 uppercase bg-gray-50">
                 <tr>
-                    <th>Time</th>
-                    <th>Text</th>
-                    <th>Scam?</th>
-                    <th>Confidence</th>
-                    <th>Warning Signs</th>
+                    <th scope="col" class="px-4 py-3 w-40 text-center">Info</th>
+                    <th scope="col" class="px-6 py-3">Call Log</th>
                 </tr>
             </thead>
             <tbody>
-                {% for analysis in analyses %}
-                <tr>
-                    <td>{{ analysis.timestamp }}</td>
-                    <td>{{ analysis.text }}</td>
-                    <td>
-                        {% if analysis.is_scam %}
-                        <span class="badge bg-danger">Yes</span>
-                        {% else %}
-                        <span class="badge bg-success">No</span>
-                        {% endif %}
+                {% for log in analyses %}
+                <tr class="bg-white border-b hover:bg-gray-50">
+                    <td class="px-4 py-3 text-center">
+                        <div class="text-xs text-gray-600">{{ log.timestamp|date:"F j, Y" }}</div>
+                        <div class="text-xs font-medium text-gray-600">Confidence: {{ log.confidence_level }}%</div>
                     </td>
-                    <td>{{ analysis.confidence }}%</td>
-                    <td>
-                        <ul class="list-unstyled">
-                            {% for warning in analysis.warning_signs %}
-                            <li>{{ warning }}</li>
-                            {% endfor %}
-                        </ul>
-                    </td>
+                    <td class="px-6 py-3">{{ log.call_log }}</td>
                 </tr>
                 {% empty %}
-                <tr>
-                    <td colspan="5" class="text-center">No call analyses yet.</td>
+                <tr class="bg-white">
+                    <td colspan="2" class="px-6 py-8 text-center text-gray-500">
+                        <div class="flex flex-col items-center">
+                            <svg class="w-12 h-12 text-gray-400 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                            </svg>
+                            <p class="text-lg font-medium">No call logs yet</p>
+                            <p class="text-sm text-gray-400">Call logs will appear here once they are recorded</p>
+                        </div>
+                    </td>
                 </tr>
                 {% endfor %}
             </tbody>

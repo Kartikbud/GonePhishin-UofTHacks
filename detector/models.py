@@ -1,14 +1,13 @@
 from django.db import models
-
-class CallAnalysis(models.Model):
+from django.contrib.auth.models import User
+class CallLog(models.Model):
     timestamp = models.DateTimeField(auto_now_add=True)
-    text = models.TextField()
-    is_scam = models.BooleanField()
-    confidence = models.FloatField()
-    warning_signs = models.JSONField()
-
-    class Meta:
-        verbose_name_plural = "Call analyses"
+    call_log = models.TextField()
+    confidence_level = models.IntegerField()
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
-        return f"Call Analysis at {self.timestamp}" 
+        return f"Call Log {self.timestamp} - Confidence: {self.confidence_level}%"
+
+    class Meta:
+        ordering = ['-timestamp']  # Most recent logs first 
