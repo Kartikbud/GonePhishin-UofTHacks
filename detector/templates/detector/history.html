@@ -1,0 +1,47 @@
+{% extends 'detector/base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1>Call Analysis History</h1>
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Time</th>
+                    <th>Text</th>
+                    <th>Scam?</th>
+                    <th>Confidence</th>
+                    <th>Warning Signs</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for analysis in analyses %}
+                <tr>
+                    <td>{{ analysis.timestamp }}</td>
+                    <td>{{ analysis.text }}</td>
+                    <td>
+                        {% if analysis.is_scam %}
+                        <span class="badge bg-danger">Yes</span>
+                        {% else %}
+                        <span class="badge bg-success">No</span>
+                        {% endif %}
+                    </td>
+                    <td>{{ analysis.confidence }}%</td>
+                    <td>
+                        <ul class="list-unstyled">
+                            {% for warning in analysis.warning_signs %}
+                            <li>{{ warning }}</li>
+                            {% endfor %}
+                        </ul>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="5" class="text-center">No call analyses yet.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %} 
