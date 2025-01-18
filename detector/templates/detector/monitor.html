@@ -34,11 +34,6 @@
                 Start
             </button>
 
-            <button id="muteBtn"
-                class="w-24 h-10 rounded-md bg-orange-500 hover:bg-orange-600 text-white text-sm font-bold flex items-center justify-center shadow-lg focus:outline-none">
-                Mute
-            </button>
-
             <button id="stopBtn"
                 class="w-24 h-10 rounded-md bg-red-500 hover:bg-red-600 text-white text-sm font-bold flex items-center justify-center shadow-lg focus:outline-none">
                 Stop
@@ -64,6 +59,9 @@
     #console .warning {
         color: #F59E0B;
     }
+    #console .normal {
+        color: #fff;
+    }
 </style>
 
 <script>
@@ -79,12 +77,28 @@
     recognition.maxAlternatives = 1;
 
     let currSentence;
-
+    callerSpeaking = 0;
+    let awaitingResponse = false;
     recognition.onresult = (event) => {
       const transcript = event.results[event.results.length - 1][0].transcript;
-      currSentence+=transcript+". ";
+      currSentence+=transcript
+      console.log(currSentence);
+
+    
     //   console.log(transcript); // Show transcribed speech in console
     };
+    // Applying the condition
+    function updateButton() {
+        if (callerSpeaking==1) {
+            startBtn.classList.remove('bg-green-500', 'hover:bg-green-600');
+            startBtn.classList.add('bg-blue-500', 'hover:bg-blue-600');
+            startBtn.textContent = "Caller";
+        } else {
+            startBtn.classList.remove('bg-blue-500', 'hover:bg-blue-600');
+            startBtn.classList.add('bg-green-500', 'hover:bg-green-600');
+            startBtn.textContent = "User";
+        }
+    }
     function appendToConsole(message, className = '') {
         const consoleDiv = document.getElementById('console');
         const messageDiv = document.createElement('div');
@@ -102,7 +116,11 @@
     socket.onmessage = function (e) {
         const data = JSON.parse(e.data);
         console.log(data);
-        appendToConsole(data.message);
+        appendToConsole(data.message, "normal");
+        if (awaitingResponse){
+            appendToConsole('Starting speaking...', 'success'); 
+            awaitingResponse=false
+        }
     };
 
     socket.onerror = function (e) {
@@ -115,33 +133,68 @@
 
     document.getElementById('startBtn').addEventListener('click', function () {
         if (socket.readyState === WebSocket.OPEN) {
+            callerSpeaking=(callerSpeaking+1)%2
+            console.log(callerSpeaking)
+            if (callerSpeaking==1){
+                appendToConsole('Start monitoring')
+            } else {
+                awaitingResponse=true;
+            }
+            try{
+                recognition.start()
+            } catch{
+                if (callerSpeaking==0){
+                socket.send(JSON.stringify({ 'command': 'mute', 'context': "Caller: "+currSentence }));
+                } else {
+                    socket.send(JSON.stringify({ 'command': 'start', 'context': "User: "+currSentence }));
+                }
+            }
             currSentence=""
-            // socket.send(JSON.stringify({ 'command': 'start' }));
-            recognition.start();
-            appendToConsole('Starting monitoring...', 'success');
+            updateButton();
+
         } else {
             appendToConsole('Error: WebSocket not connected', 'error');
         }
     });
 
+    // document.getElementById('talkerBtn').addEventListener('click', function () {
+    //     if (socket.readyState === WebSocket.OPEN) {
+    //        updateButton();
+    //        appendToConsole('Starting monitoring...', 'success');
+    //         }
+           
+    //      else {
+    //         appendToConsole('Error: WebSocket not connected', 'error');
+    //     }
+    // });
+
     document.getElementById('stopBtn').addEventListener('click', function () {
         if (socket.readyState === WebSocket.OPEN) {
-            socket.send(JSON.stringify({ 'command': 'stop' }));
+            recognition.stop();
+            socket.send(JSON.stringify({ 'command': 'stop' }));       
+            callerSpeaking = 0;
+            awaitingResponse = false;
             appendToConsole('Stopping monitoring...', 'warning');
         } else {
             appendToConsole('Error: WebSocket not connected', 'error');
         }
     });
 
-    document.getElementById('muteBtn').addEventListener('click', function () {
-        if (socket.readyState === WebSocket.OPEN) {
-            socket.send(JSON.stringify({ 'command': 'mute', 'context' : currSentence }));
-            recognition.stop();
-            appendToConsole('Toggled mute...', 'warning');
-        } else {
-            appendToConsole('Error: WebSocket not connected', 'error');
-        }
-    });
+    // document.getElementById('muteBtn').addEventListener('click', function () {
+    //     if (socket.readyState === WebSocket.OPEN) {
+    //         currSentence = ""
+    //         console.log(1);
+    //         recognition.stop();
+    //         console.log(2);
+    //         socket.send(JSON.stringify({ 'command': 'mute', 'context' : "Caller: " + currSentence }));
+    //         console.log(3);
+    //         recognition.start();
+    //         console.log(4);
+    //         appendToConsole('Toggled mute...', 'warning');
+    //     } else {
+    //         appendToConsole('Error: WebSocket not connected', 'error');
+    //     }
+    // });
 
 </script>
 {% endblock %}

@@ -25,9 +25,10 @@ Context:
 Instructions:
 1. Analyze the snippet for any signs of suspicious behavior, such as requests for sensitive information, creation of urgency, or manipulation tactics.
 2. Consider what the caller might be attempting to achieve based on the content of the snippet.
-3. Provide a statement formatted as: "This activity is [suspicious/safe] because [reason]."
-4. Offer a recommendation based on your evaluation. Ensure the recommendation is concise, actionable, and appropriate to the situation, addressing how the user should respond.
-5. Offer a confidence level for your evaluation, 0-100%
+3. Each message will either start with "User is speaking -" or "Caller is speaking - ". Take into account who is speaking and update your impression based on the new context.
+4. Provide a statement formatted as: "This activity is [suspicious/safe] because [reason]."
+5. Offer a recommendation based on your evaluation. Ensure the recommendation is concise, actionable, and appropriate to the situation, addressing how the user should respond.
+6. Offer a confidence level for your evaluation, 0-100%
 Your response must be structured like this:
 {{
   "evaluation": "This activity is [suspicious/safe] because [reason]",
@@ -45,6 +46,8 @@ class CallMonitorConsumer(AsyncWebsocketConsumer):
 
     async def connect(self):
         print("WebSocket connecting...")
+        context[0]=""
+        lastConfidence[0]=""
         await self.accept()
         print("WebSocket connected!")
 
@@ -53,10 +56,10 @@ class CallMonitorConsumer(AsyncWebsocketConsumer):
 
     async def receive(self, text_data):
         print(f"Received message: {text_data}")
+        print(context)
         try:
             data = json.loads(text_data)
             command = data.get('command')
-            print(f"Received command: {command}")
 
             if command == 'stop':
                 # Create new CallLog entry
@@ -67,11 +70,15 @@ class CallMonitorConsumer(AsyncWebsocketConsumer):
                 )
                 print("HEFHESIFHOESI")
                 context[0]=""
-                
+                lastConfidence[0]=""
+            elif command == 'start':
+                sentence = data.get('context')
+                print(sentence,1)
+                context[0]+=sentence+"\n"
             elif command == 'mute':
                 print(1)
                 sentence = data.get('context')
-                print(sentence)
+                print(sentence,2)
                 print(2)
                 gemResponse = ask_gemini(sentence, context[0])
                 for i in range(len(gemResponse)):
@@ -87,7 +94,7 @@ class CallMonitorConsumer(AsyncWebsocketConsumer):
                 except Exception as e:
                     pass
                 response=""
-                context[0]+= sentence+". "
+                context[0]+= sentence+"\n"
                 print(context[0])
                 print(type(gemResponse))
                 for i in gemResponse:
