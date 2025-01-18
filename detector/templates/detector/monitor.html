@@ -2,19 +2,23 @@
 
 {% block content %}
 <script src="https://cdn.tailwindcss.com"></script>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Cardo:ital,wght@0,400;0,700;1,400&display=swap');
+    </style>
 
-<div class="min-h-screen bg-gray-100 flex flex-col">
+<div class="min-h-screen flex flex-col" style="background-color: #F5F5DC;">
     <div class="p-4">
-        <h1 class="text-3xl font-bold text-gray-800 text-center">
+        <h1 class="text-4xl font-bold text-gray-800 text-center " style="font-family: 'Cardo', serif;">
+            
             Scam Call Detector
         </h1>
-        <p class="text-gray-600 text-center mt-2">
+        <p class="text-gray-800 text-center mt-2" style="font-family: 'Cardo', serif;">
             Put your call on speaker and start monitoring
         </p>
     </div>
 
     <div class="text-center mb-4">
-        <span id="status" class="px-4 py-2 rounded-full text-sm font-medium bg-gray-300 text-gray-900">
+        <span id="status" class="px-4 py-2 rounded-full text-sm font-medium text-gray-900" style="font-family: 'Cardo', serif; background-color: #ACBF69;">
             Ready to monitor
         </span>
     </div>
@@ -30,12 +34,12 @@
         <div class="flex justify-center items-center gap-6">
             <!-- Start Button -->
             <button id="startBtn"
-                class="w-24 h-10 rounded-md bg-green-500 hover:bg-green-600 text-white text-sm font-bold flex items-center justify-center shadow-lg focus:outline-none">
+                class="w-24 h-10 rounded-md bg-[#ACBF69] hover:bg-[#98A85E] text-black text-sm font-bold flex items-center justify-center shadow-lg focus:outline-none" style="font-family: 'Cardo', serif;">
                 Start
             </button>
 
             <button id="stopBtn"
-                class="w-24 h-10 rounded-md bg-red-500 hover:bg-red-600 text-white text-sm font-bold flex items-center justify-center shadow-lg focus:outline-none">
+            class="w-24 h-10 rounded-md bg-[#C84B31] hover:bg-[#A64B32] text-black text-sm font-bold flex items-center justify-center shadow-lg focus:outline-none" style="font-family: 'Cardo', serif;">
                 Stop
             </button>
         </div>
