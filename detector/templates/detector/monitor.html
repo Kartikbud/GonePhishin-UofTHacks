@@ -52,6 +52,15 @@
         color: #10B981;
     }
 
+    #console .currCaller {
+        color: #169ed8;
+    }
+
+    #console .currUser {
+        color: #ea7318;
+    }
+
+
     #console .error {
         color: #EF4444;
     }
@@ -79,10 +88,17 @@
     let currSentence;  
     callerSpeaking = 0;
     let awaitingResponse = false;
+
     recognition.onresult = (event) => {
       const transcript = event.results[event.results.length - 1][0].transcript;
       currSentence+=transcript
       console.log(currSentence);
+      if (callerSpeaking){
+        appendToConsole(currSentence, 'currCaller');
+      } else {
+        appendToConsole(currSentence, 'currUser');
+      }
+      
     };
     // Applying the condition
     function updateButton() {
