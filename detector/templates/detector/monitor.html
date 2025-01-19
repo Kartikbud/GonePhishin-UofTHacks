@@ -2,44 +2,47 @@
 
 {% block content %}
 <script src="https://cdn.tailwindcss.com"></script>
+
 <style>
-    @import url('https://fonts.googleapis.com/css2?family=Cardo:ital,wght@0,400;0,700;1,400&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Cardo:ital,wght@0,400;0,700;1,400&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
     </style>
 
 <div class="min-h-screen flex flex-col" style="background-color: #F5F5DC;">
-    <div class="p-4">
-        <h1 class="text-4xl font-bold text-gray-800 text-center " style="font-family: 'Cardo', serif;">
+    <div class="p-4 mt-7">
+        <h1 class="text-4xl font-bold text-gray-800 text-center "  style="font-family: 'Poppins', sans-serif;">
             
             Scam Call Detector
         </h1>
-        <p class="text-gray-800 text-center mt-2" style="font-family: 'Cardo', serif;">
+        <p class="text-gray-800 text-center mt-2"  style="font-family: 'Poppins', sans-serif;">
             Put your call on speaker and start monitoring
         </p>
     </div>
 
     <div class="text-center mb-4">
-        <span id="status" class="px-4 py-2 rounded-full text-sm font-medium text-gray-900" style="font-family: 'Cardo', serif; background-color: #ACBF69;">
+        <span id="status" class="px-4 py-2 rounded-full text-sm font-medium text-gray-900"  style= " font-family: 'Poppins', sans-serif; background-color: #ACBF69;">
             Ready to monitor
         </span>
     </div>
-
-    <div class="bg-black rounded-lg mx-6 shadow-lg p-4 overflow-y-auto" style="height: 350px;">
-        <div id="console" class="font-mono text-sm text-green-500">
-            <div class="opacity-70">$ System initialized...</div>
-            <div class="opacity-70">$ Ready to monitor. Click Start to begin...</div>
+    <div style="margin-top: 10px;">
+        <div class="bg-black rounded-lg mx-6 shadow-lg p-4 overflow-y-auto" style="height: 350px;">
+            <div id="console" class="font-mono text-sm text-green-500">
+                <div class="opacity-70">$ System initialized...</div>
+                <div class="opacity-70">$ Ready to monitor. Click Start to begin...</div>
+            </div>
         </div>
     </div>
+   
 
     <div class="mt-8 mb-4">
         <div class="flex justify-center items-center gap-6">
             <!-- Start Button -->
             <button id="startBtn"
-                class="w-24 h-10 rounded-md bg-[#ACBF69] hover:bg-[#98A85E] text-black text-sm font-bold flex items-center justify-center shadow-lg focus:outline-none" style="font-family: 'Cardo', serif;">
+                class="w-24 h-10 rounded-md bg-[#ACBF69] hover:bg-[#98A85E] text-black text-sm font-bold flex items-center justify-center shadow-lg focus:outline-none"  style="font-family: 'Poppins', sans-serif;">
                 Start
             </button>
 
             <button id="stopBtn"
-            class="w-24 h-10 rounded-md bg-[#C84B31] hover:bg-[#A64B32] text-black text-sm font-bold flex items-center justify-center shadow-lg focus:outline-none" style="font-family: 'Cardo', serif;">
+            class="w-24 h-10 rounded-md bg-[#C84B31] hover:bg-[#A64B32] text-black text-sm font-bold flex items-center justify-center shadow-lg focus:outline-none"  style="font-family: 'Poppins', sans-serif;" >
                 Stop
             </button>
         </div>
