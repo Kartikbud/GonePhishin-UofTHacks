@@ -1,76 +1,32 @@
-Gone Phishin' - UofT Hacks 2025
+# Gone Phishin' - UofT Hacks 2025
 
+We are proud to present **Gone Phishin'**, created by **Kartik Budihal**, **Darun Kanesalingam**, and **Evan Liu** for **UofT Hacks 2025**. This project addresses the growing issue of cybercrime perpetrated through scam calls and phishing attempts over the phone.
 
+---
 
-We are proud to present Gone Phishin', created by Kartik Budihal, Darun Kanesalingam, and Evan Liu for UofT Hacks 2025. This project addresses the growing issue of cybercrime perpetrated through scam calls and phishing attempts over the phone.
+## What It Does
+**Gone Phishin'** utilizes the **Gemini API** to listen to live calls and analyze the audio in real-time to determine if the caller's activity appears suspicious. The application is designed to:
+- Detect potential scams during phone calls.
+- Provide a user-friendly interface to monitor conversations.
 
-What It Does
+### How It Works
+1. When a call starts, the user clicks the **Start** button to begin monitoring.
+2. During the call, buttons corresponding to **\"User Talking\"** and **\"Caller Talking\"** are clicked based on who is speaking.
+3. The app uses the collected data and Gemini API to analyze the conversation for suspicious patterns.
 
-Gone Phishin' utilizes the Gemini API to listen to live calls and analyze the audio in real-time to determine if the caller's activity appears suspicious. The application is designed to:
+---
 
-Detect potential scams during phone calls.
+## Getting Started
 
-Provide a user-friendly interface to monitor conversations.
+### Prerequisites
+To run **Gone Phishin'**, ensure you have the following installed:
+- **Python 3.x**: Download it from [python.org](https://www.python.org/downloads/)
 
-How It Works
+### Installation
 
-When a call starts, the user clicks the Start button to begin monitoring.
+Follow these steps to set up the project on your local machine:
 
-During the call, buttons corresponding to "User Talking" and "Caller Talking" are clicked based on who is speaking.
-
-The app uses the collected data and Gemini API to analyze the conversation for suspicious patterns.
-
-Getting Started
-
-Prerequisites
-
-Python installed
-
-Required dependencies listed in requirements.txt
-
-Installation
-
-Clone the repository:
-
-git clone https://github.com/Kartikbud/GonePhishin-UofTHacks.git
-cd GonePhishin-UofTHacks
-
-Install the required dependencies:
-
-pip install -r requirements.txt
-
-Run the program:
-
-python manage.py runserver
-
-Open the application in your web browser by navigating to the URL displayed in your terminal (typically http://127.0.0.1:8000).
-
-Features
-
-Real-Time Audio Analysis: Scans calls live to detect potential phishing attempts.
-
-Interactive UI: Buttons for tracking conversation flow ensure accurate detection.
-
-Gemini API Integration: Leverages advanced machine learning for scam detection.
-
-Contribution
-
-We welcome contributions to enhance Gone Phishin'. To contribute:
-
-Fork the repository.
-
-Create a new branch for your feature or bug fix.
-
-Submit a pull request with detailed changes.
-
-License
-
-This project is licensed under the MIT License. See the LICENSE file for more details.
-
-Acknowledgements
-
-UofT Hacks 2025 for hosting an incredible hackathon.
-
-Mentors, organizers, and participants for their guidance and support.
-
-Screenshots
+1. Clone the repository by running the following command in your terminal:
+   ```bash
+   git clone https://github.com/Kartikbud/GonePhishin-UofTHacks.git
+   cd GonePhishin-UofTHacks
