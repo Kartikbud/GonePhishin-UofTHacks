@@ -29,4 +29,13 @@ Follow these steps to set up the project on your local machine:
 1. Clone the repository by running the following command in your terminal:
    ```bash
    git clone https://github.com/Kartikbud/GonePhishin-UofTHacks.git
+2. Change your directory to the application:
+   ```bash  
    cd GonePhishin-UofTHacks
+3. Install the pip libraries:
+   ```bash
+   pip install -r requirements.txt
+4. Running the application:
+   ```bash
+   python manage.py runserver
+5. In your web browser go to the URL defined in the terminal
